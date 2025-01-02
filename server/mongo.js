@@ -1,53 +1,124 @@
-// require("dotenv").config();
-// const mongoose = require("mongoose");
-// mongoose
-//   .connect(`${process.env.MY_DATABASE_URL}`)
-//   .then(() => {
-//     console.log("Connected to database");
-//   })
-//   .catch((err) => {
-//     console.log("Error connecting to database");
-//     console.log(err);
-//   });
+require("dotenv").config()
+const mongoose=require("mongoose")
+mongoose.connect(`${process.env.MY_DATABASE_URL}`)
+.then(() => {
+    console.log("Connected to database")
+})
+.catch((err) => {
+    console.log("Error connecting to database")
+    console.log(err)
+})
 
-// const registered_users_schema = new mongoose.Schema({
-//   userName: {
-//     type: String,
-//     required: true,
-//   },
-//   password: {
-//     type: String,
-//     required: true,
-//   },
-//   time: {
-//     type: Number,
-//     required: true,
-//   },
-// });
 
-// const guest_users_schema = new mongoose.Schema({
-//   time: {
-//     type: Number,
-//     required: true,
-//   },
-// });
-// const leaderboard_schema = new mongoose.Schema({
-//   userName: {
-//     type: String,
-//     required: true,
-//   },
-//   // position: {
-//   //   type: Number,
-//   //   required: true,
-//   // },
-//   time: {
-//     type: Number,
-//     required: true,
-//   },
-// });
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+})
 
-// const registered_users = mongoose.model("registered_users", registered_users_schema);
-// const guest_users = mongoose.model("guest_users", guest_users_schema);
-// const leaderboard = mongoose.model("leaderboard", leaderboard_schema);
 
-// module.exports = {registered_users,guest_users,leaderboard}
+const productSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    stocks: {
+        type: Number,
+        required: true
+    },
+    img: {
+        type: Array,
+        required: true
+    },
+    allRatings: {
+        type: Array,
+        required: true
+    },
+    reviews: {
+        type: Array,
+        required: true
+    }
+})
+const cartSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true
+    },
+    allProducts: {
+        type: Array,
+        required:true
+    }
+})
+const orderSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true
+    },
+    nameOfProduct: {
+        type: String,
+        required: true
+    },
+    qty: {
+        type: Number,
+        required: true
+    },
+    date: {
+        type: String,
+        required: true
+    },
+    time: {
+        type: String,
+        required: true
+    },
+    phoneNum: {
+        type: Number,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    pincode: {
+        type: Number,
+        required: true
+    },
+    cardNum: {
+        type: Number,
+        required: true
+    }
+   
+})
+
+
+const userCollection = mongoose.model("userCollection", userSchema)
+const productCollection = mongoose.model("productCollection", productSchema)
+const cartCollection = mongoose.model("cartCollection", cartSchema)
+const orderCollection = mongoose.model("orderCollection", orderSchema)
+
+
+// export { userCollection, productCollection, cartCollection,orderCollection };
+const collections = {
+    userCollection,
+    productCollection,
+    cartCollection,
+    orderCollection,
+  };
+  
+  module.exports = collections;
