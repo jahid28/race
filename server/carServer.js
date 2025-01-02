@@ -23,6 +23,9 @@ const bcryptjs = require("bcryptjs");
 
 const PORT = process.env.PORT || 5555;
 
+const { registered_users, guest_users, leaderboard } = require("./mongo");
+
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
