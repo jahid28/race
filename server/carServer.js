@@ -29,12 +29,7 @@ const { registered_users, guest_users, leaderboard } = require("./mongo");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({
-  origin: ["https://car-race-eosin.vercel.app","http://localhost:5173"], // Allow requests from your frontend
-  methods: ["GET", "POST", "PUT", "DELETE"],   // Allow specific HTTP methods
-  credentials: true                            // Allow credentials (if needed)
-}));
-app.options("/updateRecord", cors()); // Handle preflight
+app.use(cors());
 
 
 async function hashPassword(password) {
@@ -56,7 +51,7 @@ app.get("/", cors(), (req, res) => {
   res.send("hello from the server of car-race");
 });
 
-app.post("/checkAuth", cors(), async (req, res) => {
+app.post("/checkAuth", async (req, res) => {
   // const name = cookieParser(req.cookies.token);
   // console.log("name is ", name);
   // get name from cookie parser
@@ -79,7 +74,7 @@ app.post("/checkAuth", cors(), async (req, res) => {
 });
 
 
-app.post("/alwaysInsertRecord", cors(), async (req, res) => {
+app.post("/alwaysInsertRecord", async (req, res) => {
   try {
     const time = req.body.time;
 
@@ -98,7 +93,7 @@ app.post("/alwaysInsertRecord", cors(), async (req, res) => {
   }
 });
 
-app.post("/addNewRecord", cors(), async (req, res) => {
+app.post("/addNewRecord", async (req, res) => {
   try {
     const userName = req.body.userName;
     const time = req.body.time;
@@ -184,7 +179,7 @@ app.post("/addNewRecord", cors(), async (req, res) => {
   }
 });
 
-app.post("/updateRecord", cors(), async (req, res) => {
+app.post("/updateRecord", async (req, res) => {
   try {
     const userName = req.body.userName;
     const time = req.body.time;
@@ -249,7 +244,7 @@ app.post("/updateRecord", cors(), async (req, res) => {
   }
 });
 
-app.get("/getLeaderboard", cors(), async (req, res) => {
+app.get("/getLeaderboard", async (req, res) => {
   try {
     const data = await leaderboard.find().sort({ time: 1 });
     // console.log("data is found in server");
