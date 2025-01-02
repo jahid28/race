@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "reactServer.js",
+            "src": "carServer.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/reactServer.js"
+            "dest": "/carServer.js"
         }
     ]
 }
