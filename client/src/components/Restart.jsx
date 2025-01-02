@@ -103,7 +103,7 @@ const Restart = (props) => {
 
   async function updateIfAuth() {
     if (userNameFromToken != "") {
-      // console.log("time in updateIfAuth is ", time);
+      console.log("time & name in updateIfAuth is ", time,userNameFromToken);
       await axios
         .post(`${import.meta.env.VITE_APP_SERVER_URL}/updateRecord`, {
           userName: userNameFromToken,
