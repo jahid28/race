@@ -1,11 +1,11 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-const jwt = require("jsonwebtoken");
-// const cookieParser = require('cookie-parser');
-const bcryptjs = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
+// // const cookieParser = require('cookie-parser');
+// const bcryptjs = require("bcryptjs");
 
-const PORT = process.env.MY_PORT || 5555;
+// const PORT = process.env.MY_PORT || 5555;
 // const { registered_users, guest_users, leaderboard } = require("./mongo");
 
 
@@ -34,27 +34,27 @@ app.get("/", cors(), (req, res) => {
   res.send("hello from the server of car-race");
 });
 
-app.post("/checkAuth", cors(), async (req, res) => {
-  // const name = cookieParser(req.cookies.token);
-  // console.log("name is ", name);
-  // get name from cookie parser
+// app.post("/checkAuth", cors(), async (req, res) => {
+//   // const name = cookieParser(req.cookies.token);
+//   // console.log("name is ", name);
+//   // get name from cookie parser
 
-  try {
-    const token = req.body.token;
-    // const existingRecord = await registered_users.findOne({ name });
-    // if (existingRecord) {
-    //   return res.json({
-    //     success: true,
-    //     exists: true,
-    //     msg: "User name already exists.",
-    //   });
-    // }
-    const decoded = jwt.verify(token, process.env.JWT_KEY);
-    return res.json({ decoded });
-  } catch (e) {
-    res.json({ decoded: false });
-  }
-});
+//   try {
+//     const token = req.body.token;
+//     // const existingRecord = await registered_users.findOne({ name });
+//     // if (existingRecord) {
+//     //   return res.json({
+//     //     success: true,
+//     //     exists: true,
+//     //     msg: "User name already exists.",
+//     //   });
+//     // }
+//     const decoded = jwt.verify(token, process.env.JWT_KEY);
+//     return res.json({ decoded });
+//   } catch (e) {
+//     res.json({ decoded: false });
+//   }
+// });
 
 
 // app.post("/alwaysInsertRecord", cors(), async (req, res) => {
@@ -241,6 +241,6 @@ app.post("/checkAuth", cors(), async (req, res) => {
 //   }
 // });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(4545, () => {
+  console.log(`Server is running on port 4545`);
 });
