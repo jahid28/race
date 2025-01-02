@@ -64,7 +64,7 @@ const Restart = (props) => {
         toast({
           variant: "destructive",
           // title: "Scheduled: Catch up",
-          description: "Somethig went wrong!",
+          description: "Somethig went wrong for /addNewRecord!",
         });
         console.log("error", e);
       });
@@ -95,7 +95,7 @@ const Restart = (props) => {
       toast({
         variant: "destructive",
         // title: "Scheduled: Catch up",
-        description: "Somethig went wrong!",
+        description: "Somethig went wrong in submit func!",
       });
       console.log("error", e);
     }
@@ -124,7 +124,7 @@ const Restart = (props) => {
         .catch((e) => {
           toast({
             variant: "destructive",
-            description: "Somethig went wrong!",
+            description: "Somethig went wrong for /updateRecord!",
           });
           console.log("error", e);
         });
@@ -150,7 +150,7 @@ const Restart = (props) => {
       .catch((e) => {
         toast({
           variant: "destructive",
-          description: "Somethig went wrong!",
+          description: "Somethig went wrong for /alwaysInsertRecord!",
         });
         console.log("error", e);
       });
@@ -175,7 +175,7 @@ const Restart = (props) => {
       console.log("error", e);
       toast({
         variant: "destructive",
-        description: "Somethig went wrong!",
+        description: "Somethig went wrong for /getLeaderboard!",
       });
     }
   }
