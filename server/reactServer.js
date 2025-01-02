@@ -11,8 +11,8 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const jwt = require("jsonwebtoken");
-// const cookieParser = require('cookie-parser');
 const bcryptjs = require("bcryptjs");
+
 // const {
 //   userCollection,
 //   productCollection,
@@ -28,23 +28,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-async function hashPassword(password) {
-  // Generate a salt
-  const salt = await bcryptjs.genSalt(10); // You can specify the salt rounds (10 is standard)
-  // Hash the password with the salt
-  const hashedPassword = await bcryptjs.hash(password, salt);
-  return hashedPassword;
-}
+// app.use(cors({
+//   origin: ["https://twd-store.vercel.app/"],
+//   methods:["GET","POST","POST","DELETE"],
+//   credentials:true
+// }));
 
-// Function to validate a password
-async function validatePassword(plainPassword, hashedPassword) {
-  // Compare the plain password with the hashed password
-  const isMatch = await bcryptjs.compare(plainPassword, hashedPassword);
-  return isMatch;
-}
+// async function hashPass(password) {
+//   const res = await bcryptjs.hash(password, 10);
+//   return res;
+// }
+// async function compare(userPass, hashPass) {
+//   const res = await bcryptjs.compare(userPass, hashPass);
+//   return res;
+// }
 
 app.get("/", cors(), (req, res) => {
-  res.send("hello from the server of car-race");
+  res.send(`hello from backend, my email is ${process.env.MY_EMAIL}`);
 });
 
 // app.post("/pageChange", async (req, res) => {
