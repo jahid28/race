@@ -558,7 +558,7 @@ export function Car(props) {
     <>
       <Html center>
         {!isTouchDevice && start && (
-          <div className=" w-[100vw] h-[100vh] z-[99] border-4 border-red-600 text-4xl font-bold text-white grid place-items-center">
+          <div className="select-none touch-none w-[100vw] h-[100vh] z-[99] border-4 border-red-600 text-4xl font-bold text-white grid place-items-center">
             <div
               onClick={() => {
                 if (cameraAngle === 4) {
@@ -581,7 +581,7 @@ export function Car(props) {
         )}
         
         {isTouchDevice && start && (
-          <div className=" w-[100vw] h-[100vh] z-[99] border-4 border-red-600 text-8xl font-bold text-white grid place-items-center">
+          <div className="select-none touch-none w-[100vw] h-[100vh] z-[99] border-4 border-red-600 text-7xl font-bold text-white grid place-items-center">
             <div
               onClick={() => {
                 if (cameraAngle === 4) {
@@ -590,49 +590,57 @@ export function Car(props) {
                   setCameraAngle(cameraAngle + 1);
                 }
               }}
-              className="absolute left-4 top-4 text-5xl border-2 border-white rounded-md p-3"
+              className="absolute left-2 top-2 text-5xl border-2 border-white rounded-md p-3"
             >
               <p className="text-center mb-4">{cameraAngle}</p>
               <FaCamera />
             </div>
 
-            <div className="absolute left-8 bottom-8 grid place-items-center">
+            <div className="absolute left-2 bottom-16 grid place-items-center">
               <FaCaretSquareUp
-                onTouchStart={() => {
+                onTouchStart={(e) => {
                   keysPressed.current.add("w");
                 }}
-                onTouchEnd={() => {
+                onTouchEnd={(e) => {
                   keysPressed.current.delete("w");
                 }}
+                // onTouchStart={(e) => e.preventDefault()} // Prevent long press triggering text selection
+                // onContextMenu={(e) => e.preventDefault()}
                 className="mb-10"
               />
               <FaCaretSquareDown
-                onTouchStart={() => {
+                onTouchStart={(e) => {
                   keysPressed.current.add("s");
                 }}
-                onTouchEnd={() => {
+                onTouchEnd={(e) => {
                   keysPressed.current.delete("s");
                 }}
+                // onTouchStart={(e) => e.preventDefault()} // Prevent long press triggering text selection
+                // onContextMenu={(e) => e.preventDefault()}
               />
             </div>
 
-            <div className="absolute bottom-36 right-8 flex items-center">
+            <div className="absolute bottom-36 right-2 flex items-center">
               <FaCaretSquareLeft
-                onTouchStart={() => {
+                onTouchStart={(e) => {
                   keysPressed.current.add("a");
                 }}
-                onTouchEnd={() => {
+                onTouchEnd={(e) => {
                   keysPressed.current.delete("a");
                 }}
+                // onTouchStart={(e) => e.preventDefault()} // Prevent long press triggering text selection
+                // onContextMenu={(e) => e.preventDefault()}
                 className="mr-10"
               />
               <FaCaretSquareRight
-                onTouchStart={() => {
+                onTouchStart={(e) => {
                   keysPressed.current.add("d");
                 }}
-                onTouchEnd={() => {
+                onTouchEnd={(e) => {
                   keysPressed.current.delete("d");
                 }}
+                // onTouchStart={(e) => e.preventDefault()} // Prevent long press triggering text selection
+                // onContextMenu={(e) => e.preventDefault()}
               />
             </div>
 
@@ -645,7 +653,9 @@ export function Car(props) {
               onTouchEnd={() => {
                 keysPressed.current.delete(" ");
               }}
-              className="absolute bottom-8 right-8 border-2 border-white text-6xl rounded-md py-2 px-8"
+              // onTouchStart={(e) => e.preventDefault()} // Prevent long press triggering text selection
+                // onContextMenu={(e) => e.preventDefault()}
+              className="absolute bottom-16 right-2 border-2 border-white text-4xl rounded-md py-2 px-8"
             >
               Brake
             </p>

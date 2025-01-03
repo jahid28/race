@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 mongoose
   .connect(`${process.env.MY_DATABASE_URL}`)
   .then(() => {
-    console.log("Connected to database");
+    console.log("Connected to base");
   })
   .catch((err) => {
     console.log("Error connecting to database");
