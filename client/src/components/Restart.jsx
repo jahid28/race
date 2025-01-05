@@ -201,7 +201,8 @@ const Restart = (props) => {
     <div className="absolute border-0 border-red-600 overflow-y-auto top-0 z-[100] w-[100vw] h-[100vh] text-white bg-teal-950 opacity-[.95]">
       <div className="border-0 border-red-500 mt-20 mb-20 w-fit relative left-1/2 -translate-x-1/2 px-2 grid place-items-center text-center font-semibold">
         <p className="text-xl md:text-3xl">
-          Welldone, you finished the race in{" "}
+          {userNameFromToken==""?"Welldone, you finished the race in ":`Welldone ${userNameFromToken}, you finished the race in `}
+          
           <span className="text-yellow-300">{time / 1000} seconds</span>
         </p>
         {userNameFromToken == "" ? (

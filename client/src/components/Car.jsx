@@ -694,11 +694,11 @@ export function Car(props) {
       <Barrier13 />
 
       <group ref={vehicle} position={[0, 0, 0]}>
-        {window.innerWidth < 800 ? (
+        {/* {window.innerWidth < 800 ? (
           <MobileCarBody ref={chassisBody} />
-        ) : (
+        ) : ( */}
           <CarBody ref={chassisBody} />
-        )}
+        {/* )} */}
 
         <Wheel ref={wheels[0]} leftSide />
         <Wheel ref={wheels[1]} />
