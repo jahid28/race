@@ -41,7 +41,7 @@ function Scene(props) {
 {/* <ambientLight intensity={1} /> */}
           {/* <fog attach="fog" args={["#7d7c7c", -300, 200]} /> */}
 
-          <Environment resolution={512} preset="city">
+          {/* <Environment resolution={512} preset="city">
             <Lightformer
               form="ring"
               color="white"
@@ -58,7 +58,9 @@ function Scene(props) {
               position={[0, 3.2, -4]}
             //   onUpdate={(self) => self.lookAt(0, 0, 0)}
             />
-          </Environment>
+          </Environment> */}
+
+          <Environment preset="dawn" />
 
           {/* <EffectComposer>
         <Bloom intensity={0.01} luminanceThreshold={0} luminanceSmoothing={.9} />

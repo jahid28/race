@@ -338,7 +338,7 @@ export function Car(props) {
         cameraRef.current.lookAt(vehiclePosition.current);
       }
       if (cameraAngle === 1) {
-        const offset = new THREE.Vector3(0, 8, -25).applyQuaternion(
+        const offset = new THREE.Vector3(0, 7, -25).applyQuaternion(
           vehicleQuaternion.current
         );
         cameraRef.current.position.copy(vehiclePosition.current).add(offset);
@@ -583,7 +583,7 @@ export function Car(props) {
         {isTouchDevice && start && (
           <div className="select-none touch-none w-[100vw] h-[100vh] z-[99] border-4 border-red-600 text-7xl font-bold text-white grid place-items-center">
             <div
-              onClick={() => {
+              onTouchStart={() => {
                 if (cameraAngle === 4) {
                   setCameraAngle(1);
                 } else {

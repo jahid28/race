@@ -4,6 +4,13 @@
   -webkit-touch-callout: none;
 }
 
+.bgImage{
+  background: url('race-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .key{
   border: 2px solid white;
   border-radius: 3px;

@@ -198,11 +198,12 @@ const Restart = (props) => {
   // }, [time]);
 
   return (
-    <div className="absolute border-0 border-red-600 overflow-y-auto top-0 z-[100] w-[100vw] h-[100vh] text-white bg-teal-950 opacity-[.95]">
+    <div className="bgImage absolute border-0 border-red-600 overflow-y-auto top-0 z-[100] w-[100vw] h-[100vh] text-white bg-teal-950 opacity-[.95]">
       <div className="border-0 border-red-500 mt-20 mb-20 w-fit relative left-1/2 -translate-x-1/2 px-2 grid place-items-center text-center font-semibold">
         <p className="text-xl md:text-3xl">
-          {userNameFromToken==""?"Welldone, you finished the race in ":`Welldone ${userNameFromToken}, you finished the race in `}
-          
+          <span>Welldone</span>
+          {userNameFromToken!=""&&<span className="text-yellow-300"> {userNameFromToken}</span>}
+          <span>, you finished the race in </span>
           <span className="text-yellow-300">{time / 1000} seconds</span>
         </p>
         {userNameFromToken == "" ? (
@@ -289,13 +290,13 @@ const Restart = (props) => {
         <table className="border-2 border-yellow-300 mb-4 w-[95vw] lg:w-[60rem] relative left-1/2 -translate-x-1/2">
           <thead className="text-black">
             <tr>
-              <th className="border-2 border-white bg-teal-800 text-white p-2">
+              <th className="border-2 border-white bg-zinc-500 text-white p-2">
                 Rank
               </th>
-              <th className="border-2 border-white bg-teal-800 text-white p-2">
+              <th className="border-2 border-white bg-zinc-500 text-white p-2">
                 Username
               </th>
-              <th className="border-2 border-white bg-teal-800 text-white p-2">
+              <th className="border-2 border-white bg-zinc-500 text-white p-2">
                 Time
               </th>
             </tr>
