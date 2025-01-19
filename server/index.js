@@ -12,6 +12,11 @@ const cors = require("cors");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // const {
 //   userCollection,
@@ -24,11 +29,6 @@ const bcryptjs = require("bcryptjs");
 const PORT = process.env.PORT || 5555;
 
 const { registered_users, guest_users, leaderboard } = require("./mongo");
-
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 async function hashPassword(password) {
   // Generate a salt
@@ -49,7 +49,7 @@ app.get("/",cors(), (req, res) => {
   res.send("hello from the server of car-race");
 });
 
-app.post("/checkAuth",cors(), async (req, res) => {
+app.post("/checkAuth",cors(), (req, res) => {
   // const name = cookieParser(req.cookies.token);
   // console.log("name is ", name);
   // get name from cookie parser
