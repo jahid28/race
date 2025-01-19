@@ -5,7 +5,7 @@
 }
 
 .bgImage{
-  background: url('race-bg.png');
+  background: url('/race-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
