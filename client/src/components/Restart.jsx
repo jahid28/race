@@ -124,7 +124,7 @@ const Restart = (props) => {
         .catch((e) => {
           toast({
             variant: "destructive",
-            description: "Somethig went wrong for /updateRecord!",
+            description: `Somethig went wrong for /updateRecord: ${e.message}`,
           });
           console.log("error", e);
         });
