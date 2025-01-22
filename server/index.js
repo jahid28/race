@@ -14,7 +14,12 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://car-race-eosin.vercel.app','http://localhost:5173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow specific HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+    credentials: true, // Allow sending cookies
+  }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -45,11 +50,11 @@ async function validatePassword(plainPassword, hashedPassword) {
   return isMatch;
 }
 
-app.get("/",cors(), (req, res) => {
+app.get("/", (req, res) => {
   res.send("hello from the server of car-race");
 });
 
-app.post("/checkAuth",cors(), (req, res) => {
+app.post("/checkAuth", (req, res) => {
   // const name = cookieParser(req.cookies.token);
   // console.log("name is ", name);
   // get name from cookie parser
@@ -71,7 +76,7 @@ app.post("/checkAuth",cors(), (req, res) => {
   }
 });
 
-app.post("/alwaysInsertRecord",cors(), async (req, res) => {
+app.post("/alwaysInsertRecord", async (req, res) => {
   try {
     const time = req.body.time;
 
@@ -90,7 +95,7 @@ app.post("/alwaysInsertRecord",cors(), async (req, res) => {
   }
 });
 
-app.post("/addNewRecord",cors(), async (req, res) => {
+app.post("/addNewRecord", async (req, res) => {
   try {
     const userName = req.body.userName;
     const time = req.body.time;
@@ -176,7 +181,7 @@ app.post("/addNewRecord",cors(), async (req, res) => {
   }
 });
 
-app.post("/updateRecord",cors(), async (req, res) => {
+app.post("/updateRecord", async (req, res) => {
   try {
     const userName = req.body.userName;
     const time = req.body.time;
@@ -241,7 +246,7 @@ app.post("/updateRecord",cors(), async (req, res) => {
   }
 });
 
-app.get("/getLeaderboard",cors(), async (req, res) => {
+app.get("/getLeaderboard", async (req, res) => {
   try {
     const data = await leaderboard.find().sort({ time: 1 });
     // console.log("data is found in server");
