@@ -14,6 +14,8 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const app = express();
 
+app.options('*', cors());
+
 app.use(cors({
   origin: ['https://car-race-eosin.vercel.app','http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow specific HTTP methods
