@@ -2,16 +2,12 @@ import { useState, Suspense, lazy, useEffect, useRef } from "react";
 // import "./App.css";
 import Scene from "./Scene";
 import { FaLinkedin } from "react-icons/fa";
-// import { useDispatch } from "react-redux";
-// import { nameFunc,restartFunc } from "../../redux/actions";
-// import { useSelector } from "react-redux";
-// import { z } from "zod";
 import Countdown from "./Countdown";
 import Restart from "./Restart";
 import useStore from "../../zustand/useStore";
 import Cookies from "js-cookie";
 import axios from "axios";
-import Loading from "./Loading";
+// import Loading from "./Loading";
 import {
   FaCaretSquareUp,
   FaCaretSquareDown,
@@ -67,24 +63,6 @@ function Experience() {
   async function submit(e) {
     e.preventDefault();
     try {
-      // await axios
-      //   .post(`${import.meta.env.VITE_APP_SERVER_URL}/checkName`, {
-      //     name,
-      //   })
-      //   .then((res) => {
-      //     if (res.data.exists) {
-      //       alert(res.data.msg);
-      //       return;
-      //     } else {
-      //       const result = formSchema.safeParse({ name });
-      //       if (!result.success) {
-      //         result.error.issues.forEach((i) => {
-      //           alert(i.message);
-      //         });
-      //         return;
-      //       }
-
-      // nameFunc(name);
       menu.current.style.display = "none";
       setPlay(true);
       restartFunc(true);
@@ -120,15 +98,6 @@ function Experience() {
         .then((res) => {
           if (res.data.decoded) {
             userNameFromTokenFunc(res.data.decoded.userName);
-            // setUserName(res.data.decoded.userName);
-            // addRecord();
-            // setPassword(res.data.decoded.password);
-            // setTimeout(() => {
-
-            //   submit({ preventDefault: () => {} });
-            // }, 5000);
-          } else {
-            console.log("token is there but invalid");
           }
         });
     } catch (error) {
@@ -137,22 +106,14 @@ function Experience() {
   }
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   toast({
-    //     // variant: "destructive",
-    //     // title: "Scheduled: Catch up",
-    //     description: "Friday, February 10, 2023 at 5:57 PM",
-    //   })
-    // }, 5000);
     checkAuth();
-    // getLeaderboard();
   }, []);
 
   return (
     <>
       <main
         ref={menu}
-        className="select-none border-4 border-red-500 w-[100vw] h-[100vh] overflow-hidden absolute top-0 z-[99] grid place-items-center"
+        className="select-none border-0 border-red-500 w-[100vw] h-[100vh] overflow-hidden absolute top-0 z-[99] grid place-items-center"
       >
         <div className="dropShadow absolute top-2 left-2 text-xl text-white font-semibold">
           <p className="mb-5">Controls :</p>
@@ -217,20 +178,7 @@ function Experience() {
           className="absolute formAnime bottom-24 md:bottom-12 left-1/2 -translate-x-1/2 grid place-items-center"
           action=""
         >
-          {/* <input
-            onChange={(e) => {
-              setName(e.target.value);
-              // dispatch(nameFunc(e.target.value));
-              // console.log(e.target.value);
-            }}
-            value={name}
-            className=" py-1 text-xl px-2 rounded-sm mb-14 w-full"
-            placeholder="Enter your name"
-            required
-            type="text"
-            maxLength={20}
-          /> */}
-          {/* <br /> */}
+        
           <button
             type="submit"
             className="-skew-x-12 font-faster text-yellow-300 text-5xl md:text-7xl border-2 border-yellow-300 hover:text-teal-950 hover:bg-yellow-300 cursor-pointer h-fit w-fit pt-.5 pb-1 px-8 transition-all duration-300"

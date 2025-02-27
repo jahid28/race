@@ -1,12 +1,4 @@
 require("dotenv").config();
-// import cors from 'cors'
-// import bcryptjs from 'bcryptjs'
-// import express from 'express';
-// import nodemailer from 'nodemailer';
-// // import jwt from 'jsonwebtoken';
-// import { userCollection, productCollection, cartCollection, orderCollection } from "./mongo.js"
-// import dotenv from 'dotenv/config';
-// import path from 'path'
 
 const cors = require("cors");
 const express = require("express");
@@ -24,14 +16,6 @@ app.use(cors({
   }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// const {
-//   userCollection,
-//   productCollection,
-//   cartCollection,
-//   orderCollection,
-// } = require("./mongo");
-// const url = require("url");
 
 const PORT = process.env.PORT || 5555;
 
@@ -57,20 +41,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/checkAuth", (req, res) => {
-  // const name = cookieParser(req.cookies.token);
-  // console.log("name is ", name);
-  // get name from cookie parser
 
   try {
     const token = req.body.token;
-    // const existingRecord = await registered_users.findOne({ name });
-    // if (existingRecord) {
-    //   return res.json({
-    //     success: true,
-    //     exists: true,
-    //     msg: "User name already exists.",
-    //   });
-    // }
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     return res.json({ decoded });
   } catch (e) {
@@ -115,7 +88,7 @@ app.post("/addNewRecord", async (req, res) => {
         await leaderboard.updateOne({ userName }, { $set: { time } });
       }
     } else {
-      if (leaderboardResults.length < 100) {
+      if (leaderboardResults.length < 50) {
         const data = {
           userName,
           time,
@@ -196,7 +169,7 @@ app.post("/updateRecord", async (req, res) => {
         await leaderboard.updateOne({ userName }, { $set: { time } });
       }
     } else {
-      if (leaderboardResults.length < 100) {
+      if (leaderboardResults.length < 50) {
         const data = {
           userName,
           time,
@@ -250,7 +223,7 @@ app.post("/updateRecord", async (req, res) => {
 
 app.get("/getLeaderboard", async (req, res) => {
   try {
-    const data = await leaderboard.find().sort({ time: 1 });
+    const data = await leaderboard.find().sort({ time: 1 }).limit(50);
     // console.log("data is found in server");
     return res.json({ success: true, data });
   } catch (e) {

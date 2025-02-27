@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
-// import { restartFunc,endFunc } from "../../redux/actions";
 import useStore from "../../zustand/useStore";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -11,11 +8,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 const Restart = (props) => {
   const { toast } = useToast();
-
-  // const dispatch = useDispatch();
-  // const name = useSelector((state) => state.reducer1.name);
-  // const name = useStore((state) => state.name);
-  // const time = useSelector((state) => state.reducer1.time);
   const time = useStore((state) => state.time);
   const restartFunc = useStore((state) => state.restartFunc);
   const endFunc = useStore((state) => state.endFunc);
@@ -103,7 +95,6 @@ const Restart = (props) => {
 
   async function updateIfAuth() {
     if (userNameFromToken != "") {
-      console.log("time & name in updateIfAuth is ", time,userNameFromToken);
       await axios
         .post(`${import.meta.env.VITE_APP_SERVER_URL}/updateRecord`, {
           userName: userNameFromToken,
@@ -152,7 +143,6 @@ const Restart = (props) => {
           variant: "destructive",
           description: "Somethig went wrong for /alwaysInsertRecord!",
         });
-        console.log("error", e);
       });
   }
 
@@ -161,8 +151,6 @@ const Restart = (props) => {
       await axios
         .get(`${import.meta.env.VITE_APP_SERVER_URL}/getLeaderboard`)
         .then((res) => {
-          // console.log("leaderboard in restart.jsx", res.data);
-          // console.log("leaderboard in restart.jsx", res.data);
           if (res.data.success) {
             setLeaderboardData(res.data.data);
           } else {
@@ -180,8 +168,6 @@ const Restart = (props) => {
     }
   }
 
-  // useEffect(() => {
-  // },[])
 
   useEffect(() => {
     updateIfAuth();
@@ -191,11 +177,6 @@ const Restart = (props) => {
     }, 3000);
   }, []);
 
-  // useEffect( () => {
-  //   // setTimeout(() => {
-  //     console.log("time in restart is ", time);
-  //   // }, 5000);
-  // }, [time]);
 
   return (
     <div className="bgImage absolute border-0 border-red-600 overflow-y-auto top-0 z-[100] w-[100vw] h-[100vh] text-white bg-teal-950 opacity-[.95]">
@@ -247,11 +228,6 @@ const Restart = (props) => {
                 Submit
               </button>
             </form>
-
-            {/* <div className="flex items-center justify-center">
-              <p className="w-[50rem] h-[1px] bg-white"></p>
-            <p className="mt-4">OR</p>
-            </div> */}
           </>
         ) : (
           <>{/* <p>Your record has been added to the leaderboard</p> */}</>
@@ -321,9 +297,6 @@ const Restart = (props) => {
         </table>
       )}
 
-      {/* <div>
-          Leaderboard
-        </div> */}
     </div>
   );
 };

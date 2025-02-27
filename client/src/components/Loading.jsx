@@ -4,7 +4,6 @@ import { useProgress, Html } from "@react-three/drei";
 const Loading = () => {
   const { progress } = useProgress();
   return (
-    // color of bg = #282828
     <Html center>
       <div className="select-none bgImage w-[100vw] text-2xl md:text-3xl font-bold text-white h-[100vh] bg-zinc-900 grid place-items-center">
         <div className="px-3 w-[96vw] xl:w-[70rem]">
@@ -19,8 +18,6 @@ const Loading = () => {
             ></p>
           </div>
         </div>
-        {/* {Math.round(progress)}% */}
-        {/* Loading{Math.round(progress)}% */}
       </div>
     </Html>
   );

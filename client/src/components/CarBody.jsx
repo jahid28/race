@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, forwardRef } from "react";
 import { useGLTF } from "@react-three/drei";
-import * as THREE from "three";
+// import * as THREE from "three";
 
 export const CarBody = forwardRef((props, ref) => {
   // export function Model(props) {

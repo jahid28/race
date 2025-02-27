@@ -11,9 +11,6 @@ import { PerspectiveCamera, useGLTF, Html } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
 import { wheelInfo1, wheelInfo2, wheelInfo3, wheelInfo4 } from "../lib/exports";
-// import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
-// import { endFunc, timeFunc,restartFunc } from "../../redux/actions";
 import useStore from "../../zustand/useStore";
 import {
   FaCaretSquareUp,
@@ -22,8 +19,8 @@ import {
   FaCaretSquareRight,
   FaCamera,
 } from "react-icons/fa";
-import axios from "axios";
-import { MobileCarBody } from "./MobileCarBody";
+// import axios from "axios";
+// import { MobileCarBody } from "./MobileCarBody";
 import {
   Barrier1,
   Barrier2,
@@ -40,10 +37,7 @@ import {
   Barrier13,
 } from "../lib/exports";
 export function Car(props) {
-  // const dispatch = useDispatch();
-  // const restart = useSelector((state) => state.reducer1.restart);
-  // const end = useSelector((state) => state.reducer1.end);.
-  const name = useStore((state) => state.name);
+  // const name = useStore((state) => state.name);
   const end = useStore((state) => state.end);
   const restart = useStore((state) => state.restart);
   const endFunc = useStore((state) => state.endFunc);
@@ -66,11 +60,11 @@ export function Car(props) {
   const wheels = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const cameraRef = useRef();
   const vehiclePosition = useRef(new THREE.Vector3());
-  const smoothedPosition = useRef(new THREE.Vector3());
+  // const smoothedPosition = useRef(new THREE.Vector3());
   const vehicleQuaternion = useRef(new THREE.Quaternion());
-  const smoothedQuaternion = useRef(new THREE.Quaternion());
+  // const smoothedQuaternion = useRef(new THREE.Quaternion());
   const keysPressed = useRef(new Set());
-  const htmlRef = useRef();
+  // const htmlRef = useRef();
 
 
   const [chassisBody, chassisApi] = useCompoundBody(
@@ -134,30 +128,26 @@ export function Car(props) {
   useEffect(() => {
     const checkTouchDevice = () => {
       if ("maxTouchPoints" in navigator && navigator.maxTouchPoints > 0) {
-        return true; // Device supports touch
+        return true;
       }
       if ("msMaxTouchPoints" in navigator && navigator.msMaxTouchPoints > 0) {
-        return true; // Device supports touch (Microsoft devices)
+        return true;
       }
       if (
         "ontouchstart" in window ||
         (window.DocumentTouch && document instanceof window.DocumentTouch)
       ) {
-        return true; // Traditional touch detection
+        return true;
       }
-      return false; // Not a touch device
+      return false;
     };
 
     setIsTouchDevice(checkTouchDevice());
   }, []);
 
   useEffect(() => {
-    // console.log('oo',chassisBody.current,speedRef.current)
-    // const interval = setInterval(() => {
     if (chassisBody.current && !isTouchDevice) {
-      // let velocity = new THREE.Vector3();
       chassisApi.velocity.subscribe((v) => {
-        // velocity.set(...v);
         const horizontalSpeed = (
           1.4 * Math.sqrt(v[0] ** 2 + v[2] ** 2)
         ).toFixed(1);
@@ -165,32 +155,8 @@ export function Car(props) {
           speedRef.current.innerText = `${horizontalSpeed} km/h`;
         }
       });
-      // console.log("v", velocity);
     }
-    // }, 300);
-    // return () => clearInterval(interval); // Cleanup interval
   }, [isTouchDevice]);
-
-  // const geometry = nodes.BezierCurveMain.geometry; // Access geometry of the first child
-
-  // const positions = geometry.attributes.position.array; // All vertex positions
-
-  // const worldPositions = [];
-  // const matrixWorld = nodes.BezierCurveMain.matrixWorld;
-  // for (let i = 0; i < positions.length; i += 24) {
-  //   const localPosition = new THREE.Vector3(positions[i], positions[i + 1], positions[i + 2]);
-  //   const worldPosition = localPosition.applyMatrix4(matrixWorld); // Transform to world space
-  //   worldPositions.push([worldPosition.x, worldPosition.y, worldPosition.z]);
-  // }
-  // const cubePositions = worldPositions;
-
-  // useCompoundBody(() => ({
-  //   shapes: cubePositions.map((pos) => ({
-  //     type: 'Box',
-  //     args: [0.1, 1, 0.1],
-  //     position: pos,
-  //   })),
-  // }));
 
 
   useEffect(() => {
@@ -211,19 +177,6 @@ export function Car(props) {
           setCameraAngle(4);
         }
       }
-
-      //   if (event.key.toLowerCase() === " ") {
-      //     // for (let b = 2; b < 4; b++) {
-      //     vehicleApi.setBrake(90, 0);
-      //     vehicleApi.setBrake(90, 1);
-      //     // vehicleApi.setBrake(80, 2);
-      //     // vehicleApi.setBrake(80, 3);
-      //     // vehicleApi.applyEngineForce(0, 0);
-      //     // vehicleApi.applyEngineForce(0, 1);
-      //     // vehicleApi.applyEngineForce(0, 2);
-      //     // vehicleApi.applyEngineForce(0, 3);
-      //     // }
-      //   }
     };
 
     const handleKeyUp = (event) => {
@@ -261,9 +214,6 @@ export function Car(props) {
     };
   }, [chassisApi]);
 
-  // const smoothedCameraPosition = new THREE.Vector3();
-  // const smoothedCameraTarget = new THREE.Vector3();
-  // const target = useRef();
 
   useFrame((_, delta) => {
     if (start) {
@@ -384,27 +334,6 @@ export function Car(props) {
     }
   });
 
-  // const wall = useCompoundBody(() => ({
-  //   // mass: 0,
-  //   position: [-16, 2, 156],
-  //   shapes: [
-  //     {
-  //       type: "Box",
-  //       args: [452, 1, 1],
-  //     },
-  //     {
-  //       type: "Cylinder",
-  //       args: [23, 23, 5,26],
-  //       position: [-232, 0, -23],
-  //     },
-  //     {
-  //       type: "Box",
-  //       args: [280, 1, 1],
-  //       position: [-89, 0, -47.5],
-  //     },
-  //   ],
-  // }));
-
   const [checkPoint1, checkPoint1API] = useBox(() => ({
     isTrigger: true,
     // mass: 1,
@@ -459,34 +388,8 @@ export function Car(props) {
     },
   }));
 
-  // const addRecord = async (time) => {
-  //   // e.preventDefault();
-
-  //   try {
-  //     // if (!captchaValue) {
-  //     //   toast.error("Fill the Captcha")
-
-  //     // }
-  //     // else {
-  //     await axios
-  //       .post(`${import.meta.env.VITE_APP_SERVER_URL}/addRecord`, {
-  //         name,
-  //         time,
-  //       })
-  //       .then((res) => {
-  //         // if (res.success) {
-  //         console.log(res.data.msg);
-  //         // }
-  //       })
-  //   } catch (e) {
-  //     // }
-
-  //     console.log("Somethig went wrong in trycatch!",e);
-  //   }
-  // };
 
   useEffect(() => {
-    // console.log("effect")
     if (props.play) {
       setTimeout(() => {
         setStartTime(new Date().getTime());
@@ -558,7 +461,7 @@ export function Car(props) {
     <>
       <Html center>
         {!isTouchDevice && start && (
-          <div className="select-none touch-none w-[100vw] h-[100vh] z-[99] border-4 border-red-600 text-4xl font-bold text-white grid place-items-center">
+          <div className="select-none touch-none w-[100vw] h-[100vh] z-[99] border-0 border-red-600 text-4xl font-bold text-white grid place-items-center">
             <div
               onClick={() => {
                 if (cameraAngle === 4) {
@@ -581,7 +484,8 @@ export function Car(props) {
         )}
         
         {isTouchDevice && start && (
-          <div className="select-none touch-none w-[100vw] h-[100vh] z-[99] border-4 border-red-600 text-7xl font-bold text-white grid place-items-center">
+          <div className="select-none touch-none w-[100vw] h-[100vh] z-[99] border-0 border-red-600 text-3xl font-bold text-white bg-neutral-800 grid place-items-center">
+
             <div
               onTouchStart={() => {
                 if (cameraAngle === 4) {
@@ -644,7 +548,6 @@ export function Car(props) {
               />
             </div>
 
-            {/* <div className="absolute bottom-8 right-8"> */}
 
             <p
               onTouchStart={() => {
@@ -660,7 +563,6 @@ export function Car(props) {
               Brake
             </p>
 
-            {/* </div> */}
           </div>
         )}
       </Html>
@@ -673,11 +575,6 @@ export function Car(props) {
         position={[-127, 15, -160]}
         makeDefault
       />
-
-      {/* <mesh ref={chassisBody} position={[0, 10, 0]}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color="hotpink" />
-      </mesh> */}
 
       <Barrier1 />
       <Barrier2 />
