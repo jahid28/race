@@ -9,7 +9,7 @@ const app = express();
 app.options('*', cors());
 
 app.use(cors({
-  origin: ['https://car-race-eosin.vercel.app','http://localhost:5173'],
+  origin: ['https://race-car-new.vercel.app','http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow specific HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
     credentials: true, // Allow sending cookies

@@ -24,51 +24,59 @@ const Restart = (props) => {
   const [leaderboardData, setLeaderboardData] = useState([]);
 
   async function addRecord() {
-    await axios
+    try {
+      
+    
+    const res=await axios
       .post(`${import.meta.env.VITE_APP_SERVER_URL}/addNewRecord`, {
         userName,
         time,
         password,
       })
-      .then((res) => {
-        if (res.data.success) {
-          toast({
-            description: `${res.data.msg}`,
-          });
-          // if (!auth) {
-          Cookies.set("token", res.data.token, { expires: 7 });
-          userNameFromTokenFunc(userName);
-          setLoadingState(true);
-          getLeaderboard();
-          // }
-        } else {
-          toast({
-            variant: "destructive",
-            description: `${res.data.msg}`,
-          });
-        }
-        // if (!auth) {
-        //   Cookies.set("token", res.data.token, { expires: 7 });
-        // }
-        // setAuth(true);
-      })
-      .catch((e) => {
+      // .then((res) => {
+      //   if (res.data.success) {
+      //     toast({
+      //       description: `${res.data.msg}`,
+      //     });
+      //     // if (!auth) {
+      //     Cookies.set("token", res.data.token, { expires: 7 });
+      //     userNameFromTokenFunc(userName);
+      //     setLoadingState(true);
+      //     getLeaderboard();
+      //     // }
+      //   }
+      
+      // })
+
+      if (res.data.success) {
         toast({
-          variant: "destructive",
-          // title: "Scheduled: Catch up",
-          description: "Somethig went wrong for /addNewRecord!",
+          description: `${res.data.msg}`,
         });
-        console.log("error", e);
+        Cookies.set("token", res.data.token, { expires: 7 });
+        userNameFromTokenFunc(userName);
+        setLoadingState(true);
+        getLeaderboard();
+      }
+     
+      
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        // title: "Scheduled: Catch up",
+        description: "Somethig went wrong!",
       });
+      console.log("error", error);
+      
+    }
   }
 
   async function submit(e) {
     e.preventDefault();
     try {
       // if (!auth) {
-      const result = formSchema.safeParse({ userName, password });
-      if (!result.success) {
-        result.error.issues.forEach((i) => {
+      const res = formSchema.safeParse({ userName, password });
+      if (!res.success) {
+        res.error.issues.forEach((i) => {
           toast({
             variant: "destructive",
             // title: "Scheduled: Catch up",
@@ -87,45 +95,48 @@ const Restart = (props) => {
       toast({
         variant: "destructive",
         // title: "Scheduled: Catch up",
-        description: "Somethig went wrong in submit func!",
+        description: "Somethig went wrong!",
       });
       console.log("error", e);
     }
   }
 
   async function updateIfAuth() {
-    if (userNameFromToken != "") {
-      await axios
-        .post(`${import.meta.env.VITE_APP_SERVER_URL}/updateRecord`, {
-          userName: userNameFromToken,
-          time,
-        })
-        .then((res) => {
-          if (res.data.updated) {
-            toast({
-              description: `${res.data.msg}`,
-            });
-          } else {
-            toast({
-              variant: "destructive",
-              description: `${res.data.msg}`,
-            });
-          }
-        })
-        .catch((e) => {
-          toast({
-            variant: "destructive",
-            description: `Somethig went wrong for /updateRecord: ${e.message}`,
-          });
-          console.log("error", e);
-        });
-    }
+    try {
+      if (userNameFromToken != "") {
+        const res1 = await axios
+          .post(`${import.meta.env.VITE_APP_SERVER_URL}/updateRecord`, {
+            userName: userNameFromToken,
+            time,
+          })
+          // .then((res) => {
+          //   if (res.data.updated) {
+          //     toast({
+          //       description: `${res.data.msg}`,
+          //     });
+          //   } else {
+          //     toast({
+          //       variant: "destructive",
+          //       description: `${res.data.msg}`,
+          //     });
+          //   }
+          // });
 
-    await axios
-      .post(`${import.meta.env.VITE_APP_SERVER_URL}/alwaysInsertRecord`, {
-        // userName: userNameFromToken,
-        time,
-      })
+        if (res1.data.updated) {
+          toast({
+            description: `${res1.data.msg}`,
+          });
+        }
+      }
+
+      await axios.post(
+        `${import.meta.env.VITE_APP_SERVER_URL}/alwaysInsertRecord`,
+        {
+          // userName: userNameFromToken,
+          time,
+        }
+      );
+
       // .then((res) => {
       //   if (res.data.updated) {
       //     toast({
@@ -138,36 +149,44 @@ const Restart = (props) => {
       //     });
       //   }
       // })
-      .catch((e) => {
-        toast({
-          variant: "destructive",
-          description: "Somethig went wrong for /alwaysInsertRecord!",
-        });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: `Somethig went wrong!`,
       });
+      console.log("error", error);
+    }
   }
 
   async function getLeaderboard() {
     try {
-      await axios
-        .get(`${import.meta.env.VITE_APP_SERVER_URL}/getLeaderboard`)
-        .then((res) => {
-          if (res.data.success) {
-            setLeaderboardData(res.data.data);
-          } else {
-            throw new Error("error");
-          }
-        });
+      const res = await axios.get(
+        `${import.meta.env.VITE_APP_SERVER_URL}/getLeaderboard`
+      );
 
-      setLoadingState(false);
+      if (res.data.success) {
+        setLeaderboardData(res.data.data);
+      } else {
+        throw new Error("error");
+      }
+
+      // .then((res) => {
+      //   if (res.data.success) {
+      //     setLeaderboardData(res.data.data);
+      //   } else {
+      //     throw new Error("error");
+      //   }
+      // });
     } catch (e) {
       console.log("error", e);
       toast({
         variant: "destructive",
-        description: "Somethig went wrong for /getLeaderboard!",
+        description: "Somethig went wrong!",
       });
+    } finally {
+      setLoadingState(false);
     }
   }
-
 
   useEffect(() => {
     updateIfAuth();
@@ -177,13 +196,14 @@ const Restart = (props) => {
     }, 3000);
   }, []);
 
-
   return (
     <div className="bgImage absolute border-0 border-red-600 overflow-y-auto top-0 z-[100] w-[100vw] h-[100vh] text-white bg-teal-950 opacity-[.95]">
       <div className="border-0 border-red-500 mt-20 mb-20 w-fit relative left-1/2 -translate-x-1/2 px-2 grid place-items-center text-center font-semibold">
         <p className="text-xl md:text-3xl">
           <span>Welldone</span>
-          {userNameFromToken!=""&&<span className="text-yellow-300"> {userNameFromToken}</span>}
+          {userNameFromToken != "" && (
+            <span className="text-yellow-300"> {userNameFromToken}</span>
+          )}
           <span>, you finished the race in </span>
           <span className="text-yellow-300">{time / 1000} seconds</span>
         </p>
@@ -296,7 +316,6 @@ const Restart = (props) => {
           </tbody>
         </table>
       )}
-
     </div>
   );
 };
